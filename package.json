@@ -1,6 +1,7 @@
 {
   "name": "type-speed",
   "version": "1.0.0",
+  "type": "module",
   "description": "Measures typing speed in WPM. Allows you to compare your result with others.",
   "main": "index.js",
   "scripts": {
