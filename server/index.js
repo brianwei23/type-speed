@@ -1,10 +1,16 @@
 import express from "express";
+// cors allows requests from frontend
 import cors from "cors";
+// loads environment variables from .env
 import dotenv from "dotenv";
+// database connection
 import connectDB from "./config/db.js";
+// Auth routes
 import authRoutes from "./routes/auth.js";
 
+// Load environment variables
 dotenv.config({ path: "./server/.env" });
+// MongoDB connection
 connectDB();
 const app = express();
 app.use(cors());
