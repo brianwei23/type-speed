@@ -1,35 +1,22 @@
 import {Link} from "react-router-dom";
 import Auth from "./Auth";
+import { containerStyle, titleStyle, linkStyle } from "./styles/AuthStyles";
+import PageWrapper from "./styles/PageWrapper";
 
 function RegisterPage(){
     return (
-        <div style={styles.container}>
-            <h1 style={styles.title}>Create a New Account</h1>
-            {/* Auth component for registration */}
-            <Auth type="register" />
-            {/* Link to login page for registered users */}
-            <p style={styles.link}>
-               If you have a registered account: <Link to="/login">Login</Link> 
-            </p>
-        </div>
+        <PageWrapper>
+         <div style={containerStyle}>
+              <h1 style={titleStyle}>Create a New Account</h1>
+              {/* Auth component for registration */}
+               <Auth type="register" />
+              {/* Link to login page for registered users */}
+              <p style={linkStyle}>
+                 If you have a registered account: <Link to="/login">Login</Link> 
+              </p>
+         </div>
+        </PageWrapper>
     );
 }
 
-const styles = {
-    container: {
-        maxWidth: "400px",
-        margin: "50px auto",
-        padding: "20px",
-        border: "2px solid #0077b6",
-        borderRadius: "10px",
-        backgroundColor: "#caf0f8",
-        textAlign: "center",
-    },
-    title: {
-        color: "#023e8a",
-    },
-    link: {
-        marginTop: "15px",
-    },
-};
 export default RegisterPage;
