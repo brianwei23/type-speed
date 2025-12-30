@@ -1,10 +1,12 @@
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function Auth({type}){
     // Username, password, server response state
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     // Form submission
     const handleSubmit = async (e) => {
@@ -21,7 +23,12 @@ function Auth({type}){
 
             const data = await res.json();
             if (res.ok) {
-                setMessage(type === "register" ? data.message : `Welcome. You are logged in. Token: ${data.token}`);
+                if (type === "login") {
+                    localStorage.setItem("token", data.token); // Store token on login
+                    navigate("/main"); // Navigate to the main page
+                } else {
+                    setMessage(data.message);
+                }
             }
             else {
                 setMessage(data.error);
