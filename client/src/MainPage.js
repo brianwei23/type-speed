@@ -1,7 +1,15 @@
 import PageWrapper from "./styles/PageWrapper";
+import { useNavigate } from "react-router-dom";
 
 // Allows users to choose between difficulty
 function MainPage() {
+    const navigate = useNavigate();
+
+    // Logout
+    const handleLogout = () => {
+        localStorage.removeItem("token"); //Remove token
+        navigate("/login", { replace: true }); // Redirect to login page
+    };
     return (
         <PageWrapper>
             <div style={styles.container}>
@@ -13,21 +21,39 @@ function MainPage() {
                     <div style={styles.card}>
                         <h2 style={styles.cardTitle}>Easy</h2>
                         <p style={styles.cardDesc}> Recommended for beginners. </p>
-                        <button style={styles.easy}>Start</button>
+                        <button 
+                            style={styles.easy}
+                            onClick={() => navigate("/test/easy")}
+                        >
+                            Start
+                        </button>
                     </div>
                     {/* Medium */}
                     <div style={styles.card}>
                         <h2 style={styles.cardTitle}>Medium</h2>
                         <p style={styles.cardDesc}> Recommended for average players. </p>
-                        <button style={styles.medium}>Start</button>
+                        <button 
+                            style={styles.medium}
+                            onClick={() => navigate("/test/medium")}
+                        >
+                            Start
+                        </button>   
                     </div>
                     {/* Hard */}
                     <div style={styles.card}>
                         <h2 style={styles.cardTitle}>Hard</h2>
                         <p style={styles.cardDesc}> Recommended for experts. </p>
-                        <button style={styles.hard}>Start</button>
+                        <button 
+                            style={styles.hard}
+                            onClick={() => navigate("/test/hard")}
+                        >
+                            Start
+                        </button>
                     </div>
                 </div>
+                <button style={styles.logout} onClick={handleLogout}>
+                    Logout
+                </button>
             </div>
         </PageWrapper>
     );
@@ -47,6 +73,17 @@ const styles = {
     title: {
         marginBottom: "40px",
         fontSize: "2rem",
+    },
+    logout: {
+        padding: "30px 50px",
+        marginBottom: "30px",
+        cursor: "pointer",
+        borderRadius: "8px",
+        border: "none",
+        backgroundColor: "#e53e3e",
+        color: "#fff",
+        marginTop: "80px",
+        fontSize: "25px",
     },
     cardRow: {
         display: "flex",
