@@ -11,7 +11,7 @@ function MainPage() {
         navigate("/login", { replace: true }); // Redirect to login page
     };
     return (
-        <PageWrapper>
+        <PageWrapper keyboardOpacity={0.7}>
             <div style={styles.container}>
                 <h1 style={styles.title}>
                     Select the Difficulty Level
