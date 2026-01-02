@@ -18,8 +18,47 @@ const containerStyle = {
 const titleStyle = {
     color: "#023e8a",
 };
+
 const linkStyle = {
     marginTop: "15px",
 };
 
-export { containerStyle, titleStyle, linkStyle };
+// Input field style
+const inputStyle = {
+    width: "80%",
+    padding: "12px 15px",
+    marginBottom: "20px",
+    borderRadius: "8px",
+    border: "1px solid #aaa",
+    fontSize: "16px",
+    outline: "none",
+    transition: "0.2s",
+};
+
+const inputFocusStyle = {
+    borderColor: "#00bfff",
+};
+
+const buttonStyle = {
+    width: "100%",
+    padding: "15px 0",
+    borderRadius: "8px",
+    border: "none",
+    fontSize: "18px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    color: "#fff",
+    transition: "0.2s",
+};
+
+const loginButton = {
+    ...buttonStyle,
+    backgroundColor: "#38a169",
+};
+
+const registerButton = {
+    ...buttonStyle,
+    backgroundColor: "#3182ce",
+};
+
+export { containerStyle, titleStyle, linkStyle, inputStyle, inputFocusStyle, loginButton, registerButton, };

@@ -1,11 +1,13 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import { inputStyle, inputFocusStyle, loginButton, registerButton } from "./styles/AuthStyles";
 
 function Auth({type}){
     // Username, password, server response state
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const [focusedInput, setFocusedInput] = useState(null);
     const navigate = useNavigate();
 
     // Form submission
@@ -48,21 +50,38 @@ function Auth({type}){
                     placeholder="Username"
                     value = {username}
                     onChange={(e) => setUsername(e.target.value)}
+                    onFocus={() => setFocusedInput("username")}
+                    onBlur={() => setFocusedInput(null)}
+                    style={{
+                        ...inputStyle,
+                        ...(focusedInput === "username" ? inputFocusStyle : {}),
+                    }}
                     required
                 />
-                <br />
+
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onFocus={() => setFocusedInput("password")}
+                    onBlur={() => setFocusedInput(null)}
+                    style={{
+                        ...inputStyle,
+                        ...(focusedInput === "password" ? inputFocusStyle : {}),
+                    }}
                     required
                 />
-                <br />
-                <button type="submit">{type === "register" ? "Register" : "Login"}</button>
+
+                <button
+                    type="submit"
+                    style={type === "register" ? registerButton : loginButton}
+                    >
+                        {type === "register" ? "Register" : "Login"}
+                    </button>
             </form>
             {/* Display server response message */}
-            <p>{message}</p>
+            {message && <p style={{ marginTop: "15px" }}>{message}</p>}
         </div>
     );
 }
