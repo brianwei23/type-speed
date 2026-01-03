@@ -24,6 +24,14 @@ function TypingPage() {
             fetchSentence();
     }, [difficulty]);
 
+    useEffect(() => {
+        if (!sentence) return;
+        // Show results once test is done
+        if (input.length === sentence.length) {
+            navigate("/results");
+        }
+    }, [input, sentence, navigate]);
+
     return (
         <PageWrapper keyboardOpacity={0.5}>
             <div style={{color: "white", textAlign: "center", marginTop: "50px"}}>

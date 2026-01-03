@@ -4,6 +4,7 @@ import RegisterPage from './RegisterPage';
 import MainPage from './MainPage';
 import TypingPage from './TypingPage';
 import ProtectedRoute from './ProtectedRoute';
+import ResultsPage from './ResultsPage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             </ProtectedRoute>
           }
           />
+        <Route path="/results" element={<ResultsPage />} />
       </Routes>
     </Router>
   );
