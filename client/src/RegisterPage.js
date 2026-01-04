@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Auth from "./Auth";
 import { containerStyle, titleStyle, linkStyle } from "./styles/AuthStyles";
 import PageWrapper from "./styles/PageWrapper";

@@ -9,6 +9,9 @@ function TypingPage() {
     const [input, setInput] = useState("");
     const hasFetched = useRef(false); // Stops double fetching
 
+    // For WPM calculation
+    const [startTime, setStartTime] = useState(null);
+
     useEffect(() => {
         if (hasFetched.current) return; // Prevent double fetch
         hasFetched.current = true;
@@ -27,10 +30,40 @@ function TypingPage() {
     useEffect(() => {
         if (!sentence) return;
         // Show results once test is done
-        if (input.length === sentence.length) {
-            navigate("/results");
+        if (input.length === sentence.length && startTime) {
+            const end = Date.now();
+
+            const elapsedSeconds = (end - startTime) / 1000;
+            const totalChar = input.length
+
+            const words = totalChar / 5;
+            const minutes = elapsedSeconds / 60;
+            const wpm = words / minutes;
+
+            const errors = input.split("").reduce((count, char, index) => {
+                if (sentence[index] && char !== sentence[index]) return count + 1;
+                return count;
+            }, 0);
+
+            const accuracy = totalChar > 0
+                ? (totalChar - errors) / totalChar * 100
+                : 100;
+
+            const finalWPM = wpm * (accuracy / 100);
+            
+            navigate("/results", {
+                state: {
+                    rawWPM: wpm,
+                    displayWPM: Number(wpm.toFixed(2)),
+                    timeSeconds: elapsedSeconds,
+                    characters: totalChar,
+                    totalErrors: errors,
+                    accuracy: accuracy,
+                    finalWPM: finalWPM,
+                },
+            });
         }
-    }, [input, sentence, navigate]);
+    }, [input, sentence, navigate, startTime]);
 
     return (
         <PageWrapper keyboardOpacity={0.5}>
@@ -80,14 +113,14 @@ function TypingPage() {
                           value={input}
                           onChange={(e) => {
                              const typed = e.target.value;
-                             const nextCharIndex = input.length;
-                             const nextChar = sentence[nextCharIndex];
+
+                             // Begin timer when first char is entered
+                             if (!startTime && typed.length === 1) {
+                                setStartTime(Date.now());
+                             }
+
                              if (typed.length <= sentence.length) {
-                                if (typed[nextCharIndex] === nextChar) {
-                                    setInput(typed);
-                                } else {
-                                    setInput(typed.slice(0, typed.length));
-                                }
+                                 setInput(typed);
                              }
                             }}
                            autoFocus
