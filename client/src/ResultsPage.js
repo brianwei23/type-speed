@@ -9,10 +9,11 @@ import {
 } from "./styles/ResultsStyles";
 import Chain from "./styles/Chain";
 import PageWrapper from "./styles/PageWrapper"
-import {useLocation} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ResultsPage() {
     const location = useLocation();
+    const navigate = useNavigate();
     const {
       displayWPM,
       timeSeconds,
@@ -20,6 +21,7 @@ function ResultsPage() {
       accuracy = 0,
       finalWPM,
     } = location.state || {};
+
     return (
         <PageWrapper>
           <h1
@@ -163,8 +165,37 @@ function ResultsPage() {
                </div>    
               </div>
             </div>
+            <button 
+              onClick={() => navigate("/main")}
+              style={styles.toMainButton}
+             >
+              ➜ To Main Page  
+            </button> 
         </PageWrapper>
     );
 }
+
+const styles = {
+  toMainButton: {
+    position: "absolute",
+    bottom: "40px",
+    right: "40px",
+    padding: "18px 30px",
+    fontSize: "18px",
+    fontWeight: "700",
+    borderRadius: "999px",
+    border: "none",
+    cursor: "pointer",
+    background: "linear-gradient(135deg, #22d3ee, #38bdf8)",
+    color: "#000",
+    boxShadow: "0 10px 25px rgba(34,211,238,0.4)",
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+    marginBottom: "280px",
+    marginRight: "30px",
+  },
+};
 
 export default ResultsPage;

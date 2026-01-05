@@ -8,6 +8,7 @@ import connectDB from "./config/db.js";
 // Auth routes
 import authRoutes from "./routes/auth.js";
 import sentenceRoutes from "./routes/sentences.js";
+import resultsRoutes from "./routes/results.js"
 
 // Load environment variables
 dotenv.config({ path: "./server/.env" });
@@ -18,6 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/sentences", sentenceRoutes);
+app.use("/api/results", resultsRoutes);
 app.get("/", (req, res) => {
     res.send("Typing speed API is running");
 });

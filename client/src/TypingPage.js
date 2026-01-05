@@ -7,14 +7,15 @@ function TypingPage() {
     const navigate = useNavigate();
     const [sentence, setSentence] = useState("");
     const [input, setInput] = useState("");
-    const hasFetched = useRef(false); // Stops double fetching
+    const hasFetched = useRef(false);
 
     // For WPM calculation
     const [startTime, setStartTime] = useState(null);
 
     useEffect(() => {
-        if (hasFetched.current) return; // Prevent double fetch
+        if (hasFetched.current) return;
         hasFetched.current = true;
+
         const fetchSentence = async () => {
             try {
                 const res = await fetch(`http://localhost:5000/api/sentences/${difficulty}`);
@@ -50,20 +51,42 @@ function TypingPage() {
                 : 100;
 
             const finalWPM = wpm * (accuracy / 100);
-            
-            navigate("/results", {
-                state: {
-                    rawWPM: wpm,
-                    displayWPM: Number(wpm.toFixed(2)),
-                    timeSeconds: elapsedSeconds,
-                    characters: totalChar,
-                    totalErrors: errors,
-                    accuracy: accuracy,
-                    finalWPM: finalWPM,
-                },
-            });
-        }
-    }, [input, sentence, navigate, startTime]);
+
+            // Saving result
+            (async (d) => {
+                try {
+                    console.log("Saving result with difficulty:", d);
+                    await fetch("http://localhost:5000/api/results", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                        body: JSON.stringify({
+                            wpm: Number(finalWPM.toFixed(2)),
+                            accuracy: Number(accuracy.toFixed(2)),
+                            difficulty: d,
+                        }),
+                    });
+                } catch (err) {
+                    console.error("Failed to save result:", err);
+                } finally {
+                    navigate("/results", {
+                        state: {
+                            rawWPM: wpm,
+                            displayWPM: Number(wpm.toFixed(2)),
+                            timeSeconds: elapsedSeconds,
+                            characters: totalChar,
+                            totalErrors: errors,
+                            accuracy,
+                            finalWPM,
+                            difficulty: d,
+                        },
+                    });
+                }
+            })(difficulty);
+          }
+        }, [input, sentence, startTime, difficulty, navigate]);
 
     return (
         <PageWrapper keyboardOpacity={0.5}>

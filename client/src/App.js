@@ -5,6 +5,7 @@ import MainPage from './MainPage';
 import TypingPage from './TypingPage';
 import ProtectedRoute from './ProtectedRoute';
 import ResultsPage from './ResultsPage';
+import RecordPage from './RecordPage';
 
 function App() {
   return (
@@ -31,6 +32,12 @@ function App() {
           }
           />
         <Route path="/results" element={<ResultsPage />} />
+        <Route
+          path="/record/:difficulty"
+          element={
+            <RecordPage />
+          }
+        />
       </Routes>
     </Router>
   );

@@ -27,6 +27,12 @@ function MainPage() {
                         >
                             Start
                         </button>
+                        <button
+                            style={styles.record}
+                            onClick={() => navigate("/record/easy")}
+                        >
+                           🏆Best Records🏆
+                        </button>
                     </div>
                     {/* Medium */}
                     <div style={styles.card}>
@@ -38,6 +44,12 @@ function MainPage() {
                         >
                             Start
                         </button>   
+                        <button
+                            style={styles.record}
+                            onClick={() => navigate("/record/medium")}
+                        >
+                           🏆Best Records🏆
+                        </button>
                     </div>
                     {/* Hard */}
                     <div style={styles.card}>
@@ -48,6 +60,12 @@ function MainPage() {
                             onClick={() => navigate("/test/hard")}
                         >
                             Start
+                        </button>
+                        <button
+                            style={styles.record}
+                            onClick={() => navigate("/record/hard")}
+                        >
+                           🏆Best Records🏆
                         </button>
                     </div>
                 </div>
@@ -140,5 +158,18 @@ const styles = {
         color: "#fff",
         marginTop: "20px",
     },
+    record: {
+        padding: "15px 30px",
+        fontSize: "13px",
+        borderRadius: "8px",
+        border: "none",
+        cursor: "pointer",
+        backgroundColor: "orange",
+        color: "black",
+        marginTop: "20px",
+        width: "100px",
+        height: "90px",
+        marginLeft: "60px",
+    }
   };
 export default MainPage;
