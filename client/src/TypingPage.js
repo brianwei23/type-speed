@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import PageWrapper from "./styles/PageWrapper";
+import GameMusic from "./styles/GameMusic.mp3";
 
 function TypingPage() {
     const { difficulty } = useParams(); // Get difficulty from URL params
@@ -8,6 +9,8 @@ function TypingPage() {
     const [sentence, setSentence] = useState("");
     const [input, setInput] = useState("");
     const hasFetched = useRef(false);
+
+    const audioRef = useRef(null);
 
     // For WPM calculation
     const [startTime, setStartTime] = useState(null);
@@ -88,9 +91,26 @@ function TypingPage() {
           }
         }, [input, sentence, startTime, difficulty, navigate]);
 
+    // Play music when user enters page
+    useEffect(() => {
+        const audio = audioRef.current;
+
+        if (audio) {
+            audio.volume = 0.35;
+            audio.play().catch(() => {});
+        }
+        return () => {
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        };
+    }, []);
+
     return (
         <PageWrapper keyboardOpacity={0.5}>
-            <div style={{color: "white", textAlign: "center", marginTop: "50px"}}>
+            <audio ref={audioRef} src={GameMusic} />
+            <div style={{color: "#14b8a6", textAlign: "center", marginTop: "50px", fontFamily: "'Orbitron', sans-serif",}}>
                 <h1> Typing Test - {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}</h1>
                 <h2> You can begin typing now! </h2>
                 {/* Sentence display */}
@@ -105,6 +125,7 @@ function TypingPage() {
                         whiteSpace: "pre-wrap",
                         overflowWrap: "break-word",
                         wordBreak: "break-word",
+                        fontFamily: "sans-serif",
                     }}
                     >
                         {sentence.split("").map((char, index) => {
@@ -171,6 +192,8 @@ function TypingPage() {
                               backgroundColor: "#3182ce",
                               color: "#fff",
                               fontSize: "25px",
+                              boxShadow: "0 0 12px rgba(49,130,206,0.7)",
+                              fontFamily: "'Orbitron', sans-serif",
                         }}
                         >
                             Back

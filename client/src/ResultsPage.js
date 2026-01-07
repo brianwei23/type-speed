@@ -10,6 +10,8 @@ import {
 import Chain from "./styles/Chain";
 import PageWrapper from "./styles/PageWrapper"
 import { useLocation, useNavigate } from "react-router-dom";
+import VictoryAfterMidnight from "./styles/Victory After Midnight.mp3";
+import { useRef, useEffect } from "react";
 
 function ResultsPage() {
     const location = useLocation();
@@ -22,8 +24,27 @@ function ResultsPage() {
       finalWPM,
     } = location.state || {};
 
+    const audioRef = useRef(null);
+
+    // Play music when user enters page
+    useEffect(() => {
+        const audio = audioRef.current;
+
+        if (audio) {
+            audio.volume = 0.35;
+            audio.play().catch(() => {});
+        }
+        return () => {
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        };
+    }, []);
+
     return (
         <PageWrapper>
+          <audio ref={audioRef} src={VictoryAfterMidnight} />
           <h1
             style={{
               position: "absolute",

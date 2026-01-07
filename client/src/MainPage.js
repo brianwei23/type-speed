@@ -1,26 +1,52 @@
 import PageWrapper from "./styles/PageWrapper";
 import { useNavigate } from "react-router-dom";
+import { useRef, useEffect } from "react";
+import FunMusic from "./styles/FunMusic.mp3"
 
 // Allows users to choose between difficulty
 function MainPage() {
     const navigate = useNavigate();
+
+    const audioRef = useRef(null);
 
     // Logout
     const handleLogout = () => {
         localStorage.removeItem("token"); //Remove token
         navigate("/login", { replace: true }); // Redirect to login page
     };
+
+    // Play music when user enters page
+    useEffect(() => {
+        const audio = audioRef.current;
+
+        if (audio) {
+            audio.volume = 0.35;
+            audio.play().catch(() => {});
+        }
+        return () => {
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        };
+    }, []);
+
     return (
         <PageWrapper keyboardOpacity={0.7}>
+            <audio ref={audioRef} src={FunMusic} />
             <div style={styles.container}>
-                <h1 style={styles.title}>
+                <h1 style={{
+                    ...styles.title,
+                    color: "#14b8a6",
+                    fontFamily: "'Orbitron', sans-serif",
+                }}>
                     Select the Difficulty Level
                 </h1>
                 <div style={styles.cardRow}>
                     {/* Easy */}
                     <div style={styles.card}>
-                        <h2 style={styles.cardTitle}>Easy</h2>
-                        <p style={styles.cardDesc}> Recommended for beginners. </p>
+                        <h2 style={{ ...styles.cardTitle, ...styles.easyTitle }}>Easy</h2>
+                        <p style={{ ...styles.cardDesc, ...styles.easyTitle }}> Recommended for beginners. </p>
                         <button 
                             style={styles.easy}
                             onClick={() => navigate("/test/easy")}
@@ -36,8 +62,8 @@ function MainPage() {
                     </div>
                     {/* Medium */}
                     <div style={styles.card}>
-                        <h2 style={styles.cardTitle}>Medium</h2>
-                        <p style={styles.cardDesc}> Recommended for average players. </p>
+                        <h2 style={{ ...styles.cardTitle, ...styles.mediumTitle }}>Medium</h2>
+                        <p style={{ ...styles.cardDesc, ...styles.mediumTitle }}> Recommended for average players. </p>
                         <button 
                             style={styles.medium}
                             onClick={() => navigate("/test/medium")}
@@ -53,8 +79,8 @@ function MainPage() {
                     </div>
                     {/* Hard */}
                     <div style={styles.card}>
-                        <h2 style={styles.cardTitle}>Hard</h2>
-                        <p style={styles.cardDesc}> Recommended for experts. </p>
+                        <h2 style={{ ...styles.cardTitle, ...styles.hardTitle }}>Hard</h2>
+                        <p style={{ ...styles.cardDesc, ...styles.hardTitle }}> Recommended for experts. </p>
                         <button 
                             style={styles.hard}
                             onClick={() => navigate("/test/hard")}
@@ -100,8 +126,10 @@ const styles = {
         border: "none",
         backgroundColor: "#e53e3e",
         color: "#fff",
-        marginTop: "80px",
+        marginTop: "60px",
         fontSize: "25px",
+        fontFamily: "'Orbitron', sans-serif",
+        boxShadow: "0 0 12px rgba(229,62,62,0.5)",
     },
     cardRow: {
         display: "flex",
@@ -136,8 +164,10 @@ const styles = {
         border: "none",
         cursor: "pointer",
         backgroundColor: "#38a169",
-        color: "#fff",
+        color: "black",
         marginTop: "20px",
+        fontFamily: "'Orbitron', sans-serif",
+        boxShadow: "0 0 12px rgba(56,161,105,0.6)",
     },
     medium: {
         padding: "15px 30px",
@@ -145,8 +175,11 @@ const styles = {
         borderRadius: "8px",
         border: "none",
         cursor: "pointer",
-        backgroundColor: "#dd6b20",
-        color: "#000",
+        backgroundColor: "purple",
+        color: "black",
+        fontFamily: "'Orbitron', sans-serif",
+        marginTop: "20px",
+        boxShadow: "0 0 12px rgba(128,0,128,0.6)",
     },
     hard: {
         padding: "15px 30px",
@@ -155,21 +188,38 @@ const styles = {
         border: "none",
         cursor: "pointer",
         backgroundColor: "#e53e3e",
-        color: "#fff",
+        color: "black",
         marginTop: "20px",
+        fontFamily: "'Orbitron', sans-serif",
+        boxShadow: "0 0 12px rgba(229,62,62,0.6)",
+    },
+    easyTitle: {
+        color: "green",
+        fontFamily: "'Orbitron', sans-serif",
+    },
+    mediumTitle: {
+        color: "purple",
+        fontFamily: "'Orbitron', sans-serif",
+    },
+    hardTitle: {
+        color: "red",
+        fontFamily: "'Orbitron', sans-serif",
     },
     record: {
         padding: "15px 30px",
+        paddingLeft: "23px",
         fontSize: "13px",
         borderRadius: "8px",
         border: "none",
         cursor: "pointer",
-        backgroundColor: "orange",
+        backgroundColor: "#ff5722",
         color: "black",
         marginTop: "20px",
-        width: "100px",
-        height: "90px",
-        marginLeft: "60px",
+        width: "200px",
+        height: "70px",
+        marginLeft: "10px",
+        fontFamily: "'Orbitron', sans-serif",
+        boxShadow: "0 0 12px rgba(255,165,0,0.6)",
     }
   };
 export default MainPage;

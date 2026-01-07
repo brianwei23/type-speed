@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import PageWrapper from "./styles/PageWrapper";
 import Confetti from "react-confetti";
 import trophy from "./styles/trophy.png";
+import VictoryAfterMidnight from "./styles/Victory After Midnight.mp3"
 
 
 function RecordPage() {
@@ -11,6 +12,9 @@ function RecordPage() {
     const navigate = useNavigate();
 
     const [records, setRecords] = useState([]);
+
+    // For celebration music
+    const audioRef = useRef(null);
 
     // Look at leaderboard
     useEffect(() => {
@@ -25,10 +29,28 @@ function RecordPage() {
             .catch(err => console.error(err));
     }, [difficulty]);
 
+    // Play music when user enters page
+    useEffect(() => {
+        const audio = audioRef.current;
+
+        if (audio) {
+            audio.volume = 0.35;
+            audio.play().catch(() => {});
+        }
+        return () => {
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        };
+    }, []);
+
     const medals = ["🥇", "🥈", "🥉"];
+    const rankColors = ["#FFD700", "#C0C0C0", "#CD7F32"];
 
     return (
         <PageWrapper keyboardOpacity={0.5}>
+            <audio ref={audioRef} src={VictoryAfterMidnight} />
             {/* Left side trophy */}
             <img
                 src={trophy}
@@ -68,13 +90,14 @@ function RecordPage() {
             />
 
             <Confetti
-                numberOfPieces={170}
+                numberOfPieces={240}
                 recycle={false}
                 gravity={0.25}
             />
 
             <div style={styles.container}>
-                <h1 style={styles.title}>
+                <h1 style=
+                    {{ ...styles.title, color: "#14b8a6", fontFamily: "'Orbitron', sans-serif", }}>
                     🏆 Top {displayDifficulty} Records 🏆
                 </h1>
                 {/* Row of records */}
@@ -97,7 +120,7 @@ function RecordPage() {
                                             <div style={styles.medal}>
                                                 {medals[index]}
                                             </div>
-                                            <h2 style={styles.rank}>
+                                            <h2 style={{ ...styles.rank, color: rankColors[index], }}>
                                                 {index + 1}
                                             </h2>
                                         </div>
@@ -109,7 +132,7 @@ function RecordPage() {
                                         </div>
                                     </div>
                                 ) : (
-                                    <h2 style={styles.rank}>
+                                    <h2 style={{ ...styles.rank }}>
                                         {index + 1}
                                     </h2>    
                                 )}
@@ -130,6 +153,8 @@ function RecordPage() {
                     backgroundColor: "#3182ce",
                     color: "#fff",
                     fontSize: "25px",
+                    boxShadow: "0 0 12px rgba(49,130,206,0.7)",
+                    fontFamily: "'Orbitron', sans-serif",
                 }}
             >
                 Back
