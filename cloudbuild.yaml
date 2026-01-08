@@ -16,6 +16,5 @@ steps:
         gcloud run deploy typing-app \
           --image gcr.io/$PROJECT_ID/typing-app \
           --platform managed \
-          --region us-central1 \
+          --region us-west2 \
           --allow-unauthenticated \
-          --set-env-vars=MONGO_URI=$_MONGO_URI
