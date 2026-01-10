@@ -1,7 +1,7 @@
 steps:
   # 1. Build Docker image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/typing-app", "."]
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/typing-app", "--build-arg", "REACT_APP_API_URL=https://typing-app-274377411582.us-west2.run.app", "."]
 
   # 2. Push Docker image to Google Container Registry
   - name: "gcr.io/cloud-builders/docker"
