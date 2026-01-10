@@ -21,7 +21,7 @@ function TypingPage() {
 
         const fetchSentence = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/sentences/${difficulty}`);
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/sentences/${difficulty}`);
                 const data = await res.json();
                 setSentence(data.sentence);
             } catch (err){
@@ -59,7 +59,7 @@ function TypingPage() {
             (async (d) => {
                 try {
                     console.log("Saving result with difficulty:", d);
-                    await fetch("http://localhost:5000/api/results", {
+                    await fetch(`${process.env.REACT_APP_API_URL}/api/results`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

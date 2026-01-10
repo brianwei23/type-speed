@@ -18,7 +18,7 @@ function RecordPage() {
 
     // Look at leaderboard
     useEffect(() => {
-        fetch("http://localhost:5000/api/results/leaderboard")
+        fetch(`${process.env.REACT_APP_API_URL}/api/results/leaderboard`)
             .then(res => res.json())
             .then(data => {
                 const section = data.find(
