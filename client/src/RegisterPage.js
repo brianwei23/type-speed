@@ -10,7 +10,7 @@ function RegisterPage(){
         <PageWrapper>
          <h1 style={{
                 fontFamily: "'Orbitron', sans-serif",
-                color: "#a48d2eff",
+                color: "#14b8a6",
                 fontSize: "48px",
                 textAlign: "center",
                 marginTop: "30px",
