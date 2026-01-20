@@ -12,4 +12,4 @@ Measures typing speed in WPM, and if there are errors, then the WPM is reduced. 
 The URL is `https://typing-app-274377411582.us-west2.run.app/`. You can then register an account and log in. Then, choose between "Easy", "Medium", and "Hard". To see the best records, click on "Best Records" which shows the top three users for each difficulty.
 
 # Video Demonstration
-To view the video demonstration, see https://www.youtube.com/watch?v=hHbY4pJYRgI
+In the event that the site is no longer hosted in the cloud, please see https://www.youtube.com/watch?v=hHbY4pJYRgI
