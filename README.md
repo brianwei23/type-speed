@@ -1,5 +1,5 @@
 # type-speed
-Measures typing speed in WPM, and if there are errors, then the WPM is reduced. You can also compare your result with others.
+Measures typing speed in WPM, and if there are errors, then the WPM is reduced. You can also compare your result with others. This is built as a personal project by Brian Wei.
 
 # Tools Used
   * **React** for front-end
