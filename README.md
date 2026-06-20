@@ -13,3 +13,5 @@ The URL is `https://typing-app-274377411582.us-west2.run.app/`. You can then reg
 
 # Video Demonstration
 In the event that the site is no longer hosted in the cloud, please see https://www.youtube.com/watch?v=hHbY4pJYRgI
+
+To see the video showing the hosting setup, see: https://www.youtube.com/watch?v=pl6SmrQYQiw
